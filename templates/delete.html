@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <!--Font Awesome5-->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css">
+    <link rel="stylesheet"href="https://cdnjs.cloudflare.com/ajax/libs/jQuery-Validation-Engine/2.6.4/validationEngine.jquery.min.css" />
+    <!--自作CSS -->
+    <style type="text/css">
+        .headers-name {
+            padding-top: 4px;
+            padding-right: 4px;
+            padding-bottom: 2px;
+            text-align: center;
+            font-weight: bold;
+        }
+        body {
+            background: #eee;
+        }
+        form {
+            max-width: 700px;
+            margin: auto;
+            background: white;
+            padding: 10px;
+        }
+        input {
+            display: block;
+            margin: auto;
+            padding: 4px;
+        }
+        h5 {
+            text-align: center;
+        }
+        /* 入力エラーのスタイル */
+    </style>
+</head>
+<body>
+ 
+    <form method="post" action="/delete/{{.todo.ID}}">
+        <h3>削除画面</h3>
+        <p>本当に削除しますか？</p>
+        <ul>
+            <li>名前 {{.todo.Text}}</li>
+            <li>残高金 {{.todo.Status}}</li>
+            <li>作成時間： {{.todo.CreatedAt}}</li>
+        </ul>
+        <div class="form-row mb-12">
+        </div>
+        <p><input type="submit" class="btn btn-primary btn-edit btn-block" value="削除"></p>
+        <p><a href="/">戻る</a></p>
+    </form>
+    </body>
+        </form>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <!-- 郵便番号から住所自動入力 -->
+        <script src="https://ajaxzip3.github.io/ajaxzip3.js" charset="UTF-8"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jQuery-Validation-Engine/2.6.4/jquery.validationEngine.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jQuery-Validation-Engine/2.6.4/languages/jquery.validationEngine-ja.js"></script>
+
+        <script>
+            // $("#apply-form").validationEngine("attach", {focusFirstField: false});
+            function kakunin() {
+                var obj= $('option:selected').val();
+                // var obj = document.getElementById('address1').value
+                // 値(数値)を取得
+                //const num = document.form1.color1.selectedIndex;
+                // 値(数値)から値(value値)を取得
+                const str = document.getElementById('address1').options[obj].text;
+                if (obj != 0) {
+                    document.getElementById('address2').value = str;
+                    $('select#address1').css('background-color','#ffff');
+                }
+            }
+            $('#post-serch').click(function () {
+                var post = document.getElementById('post').value;
+                var result = $.ajax({
+                    headers: {                                                      //// HTTP ヘッダを構成
+                        "Content-Type": "application/json",
+                        "X-Requested-With": "XMLHttpRequest"                        //// Ajax
+                    },
+                    url: "http://geoapi.heartrails.com/api/json",
+                    type: 'GET',
+                    dataType: 'json',
+                    data: {
+                        postal: post,
+                        method: 'searchByPostal',
+                    },
+                }).done(function (data) {
+                    // APIから住所を取得
+                    // 取得した住所を画面に設定
+                    var value1 = data.response.location[0].prefecture + data.response.location[0].city + data.response.location[0].town;
+                    $('select#address1 option').remove();
+                    $('select#address1').css('background-color','#fff799');
+                    $('#address1').append('<option value="0">住所を選択してください</option>');
+                    //　設定する
+                    index = 1
+                    data.response.location.forEach(element => {
+                        var address = element.prefecture + element.city + element.town
+                        address = address.replace(/\"/g, "")
+                        $('#address1').append('<option value="' + index + '">' + element.prefecture + element.city + element.town + '</option>');
+                        index = index + 1
+                    });
+                }).fail(function (XMLHttpRequest, textStatus, errorThrown) {
+                    alert("error");
+                })
+            })
+
+            $('#edit').click(function () {
+                if ($("#apply-form").validationEngine("validate")) {
+                    if(window.confirm("登録します。よろしいですか？")){
+      
+                    //  var hostId = document.getElementById('host_id').value;
+                    var telNum1 = document.getElementById('tel_num1').value;
+                    var telNum2 = document.getElementById('tel_num2').value;
+                    var telNum3 = document.getElementById('tel_num3').value;
+                    var tel_num_temp = telNum1 + telNum2 + telNum3;
+                    var telNum = "+" + 81 + tel_num_temp.substr(1, 10);
+                    var eventId = document.getElementById('event_id').value;
+                    var date = document.getElementById('date').value;
+                    var address = document.getElementById('address2').value;
+                    var name = document.getElementById('name').value;
+                    var post = document.getElementById('post').value;
+                    var result = $.ajax({
+                        headers: {                                                      //// HTTP ヘッダを構成
+                            "Content-Type": "application/json",
+                            "X-Requested-With": "XMLHttpRequest"                        //// Ajax
+                        },
+                        url: "http://geoapi.heartrails.com/api/json",
+                        type: 'GET',
+                        dataType: 'json',
+                        data: {
+                            postal: post,
+                            method: 'searchByPostal',
+                            // event_id: eventId,
+                            // address: address,
+                            // name: name,
+                            // date: date,
+                            // tel_num: telNum.trim()
+                        },
+                        // PUTの場合
+                        // data: JSON.stringify({
+                        //     postal: eventId,
+                        //     method:'searchByPostal',
+                        //     event_id: eventId,
+                        //     address: address,
+                        //     name: name,
+                        //     date: date,
+                        //     tel_num: telNum.trim()
+                        // }),
+                    }).done(function (data) {
+                        // APIから住所を取得
+                        // 取得した住所を画面に設定
+                        // document.getElementById("address2").value = data.response.location[0].prefecture
+                        //     + data.response.location[0].city
+                        //     + data.response.location[0].town;
+                        alert("登録しました。");
+                    }).fail(function (XMLHttpRequest, textStatus, errorThrown) {
+                        alert("error");
+                    })
+                }
+                    else{
+                      window.alert('キャンセルされました'); // 警告ダイアログを表示
+                      return
+                    }
+                }
+                // const PNF = require('google-libphonenumber').PhoneNumberFormat;
+                // // Get an instance of `PhoneNumberUtil`.
+                // const phoneUtil = require('google-libphonenumber').PhoneNumberUtil.getInstance();
+                // // Parse number with country code and keep raw input.
+                // const number = phoneUtil.parseAndKeepRawInput(telNumber, 'JP');
+                // var numberTel =  phoneUtil.format(number, PNF.E164);
+            })
+        </script>
+</body>
+
+</html>
