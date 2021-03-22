@@ -5,12 +5,9 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!--Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-    <!--Font Awesome5-->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css">
     <link rel="stylesheet"href="https://cdnjs.cloudflare.com/ajax/libs/jQuery-Validation-Engine/2.6.4/validationEngine.jquery.min.css" />
-    <!--自作CSS -->
     <style type="text/css">
         .headers-name {
             padding-top: 4px;
@@ -49,37 +46,25 @@
     </style>
 </head>
 <body>
-    <!-- Navigation -->
-    <!-- <nav class="navbar navbar-light navbar-dark bg-dark">
-    <a class="navbar-brand" href="#">Bootstrap4 フォームコンポーネント ( HTMLバリデーション )</a>
-</nav> -->
     <!-- Page Content -->
-
     <div class="container mt-5 p-lg-5 bg-light">
-        <!-- <form class="needs-validation"   novalidate> -->
+        <!-- <form class="needs-validation" novalidate> -->
         <div class="form-row  headers-name mb-12">
-            <div class="col-md-12 mb-4">
-                <h2 for="lastName">残高計算システム</h2>
-                <h1>{{.data}}</h1>
-            </div>
+        <div class="col-md-12 mb-4">
+            <h2 for="lastName">残高計算システム</h2>
+            <h1>{{.data}}</h1>
         </div>
-        <h2>追加</h2>
+        </div>
         <form id="apply-form" class="" method="post" action="/new">
             <div class="form-row mb-12">
-                <div class="col-md-5 mb-3">
-                    <p>名前<input type="text" class="form-control validate[required]" name="text" size="30" placeholder="入力してください" required></p>
-                    <!-- <div class="invalid-feedback">
-                    入力してください
-                </div> -->
+                <div class="col-md-2 mb-3">
+                    <input type="button" class="btn btn-primary btn-block" onclick="location.href='/edit'" value="新規追加"/>
                 </div>
-                <div class="col-md-5 mb-3">
-                    <p>金額【円】<input type="text" class="form-control validate[required]" name="status" size="30" placeholder="入力してください" required></p>
-                    <!-- <div class="invalid-feedback">
-                    入力してください
-                </div> -->
+                <div class="col-md-2 mb-3">
+                    <input type="button" class="btn btn-primary btn-block" onclick="location.href='/addition_all'" value="一括加算"/>
                 </div>
             </div>
-            <p><b><input type="submit" class="btn btn-primary btn-edit btn-block" value="新規追加"></b></p>
+        </form>
               <table  class="table table-hover">
                 <thead>
                     <tr>
@@ -91,18 +76,17 @@
                     </tr>
                 </thead>
                 <tbody>
-                    {{ range .todos }}
+                    {{ range .user_balances }}
                     <tr>
                         <th>{{.ID}}</th>
-                        <td>{{ .Text }}</td>
-                        <td>{{ .Status }}</td>
+                        <td>{{ .Name }}</td>
+                        <td>{{ .Balance }}</td>
                         <td><button class="btn btn-edit btn-block"><a href="/detail/{{.ID}}">編集</a></button></td>
                         <td><button class="btn  btn-edit btn-block"><a href="/delete_check/{{.ID}}">削除</a></button></td>
                     </tr>
                     {{end}}
                 </tbody>
-            </table>
-        </form>
+            </table>     
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
         <!-- 郵便番号から住所自動入力 -->
@@ -111,9 +95,7 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jQuery-Validation-Engine/2.6.4/jquery.validationEngine.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jQuery-Validation-Engine/2.6.4/languages/jquery.validationEngine-ja.js"></script>
-
         <script>
-  
         </script>
 </body>
 

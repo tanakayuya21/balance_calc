@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <!--Font Awesome5-->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css">
+    <link rel="stylesheet"href="https://cdnjs.cloudflare.com/ajax/libs/jQuery-Validation-Engine/2.6.4/validationEngine.jquery.min.css" />
+    <!--自作CSS -->
+    <style type="text/css">
+        .headers-name {
+            padding-top: 4px;
+            padding-right: 4px;
+            padding-bottom: 2px;
+            text-align: center;
+            font-weight: bold;
+        }
+        body {
+            background: #eee;
+        }
+        form {
+            max-width: 700px;
+            margin: auto;
+            background: white;
+            padding: 10px;
+        }
+        input {
+            display: block;
+            margin: auto;
+            padding: 4px;
+        }
+        h5 {
+            text-align: center;
+        }
+        /* 入力エラーのスタイル */
+    </style>
+</head>
+<body>
+    <form method="post" action="/delete/{{.user_balance.ID}}">
+        <h3>削除画面</h3>
+        <p>本当に削除しますか？</p>
+        <ul>
+            <li>名前 {{.user_balance.Name}}</li>
+            <li>残高金 {{.user_balances.Balance}}</li>
+            <li>作成時間： {{.user_balances.CreatedAt}}</li>
+        </ul>
+        <div class="form-row mb-12">
+        </div>
+        <p><input type="submit" class="btn btn-primary btn-edit btn-block" value="削除"></p>
+        <p><a href="/">戻る</a></p>
+    </form>
+    </body>
+        </form>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</body>
+
+</html>
