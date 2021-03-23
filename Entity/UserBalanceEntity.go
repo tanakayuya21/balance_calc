@@ -1,7 +1,7 @@
 package Entity
 
 import (
-    "github.com/jinzhu/gorm"
+  "github.com/jinzhu/gorm"
 )
 
 type UserBalance struct {

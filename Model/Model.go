@@ -2,12 +2,13 @@ package Model
 
 import (
 	// "fmt"
-	_ "github.com/mattn/go-sqlite3"
-    "github.com/jinzhu/gorm"
-	"github.com/Users/tanakayuya/workspace/balance_calc/Entity"
+"m/Entity"
+_ "github.com/mattn/go-sqlite3"
+"github.com/jinzhu/gorm"
 )
 
-//DB初期化
+
+// DB初期化
 func DbInit() {
     db, err := gorm.Open("sqlite3", "test.sqlite3")
     if err != nil {
@@ -17,7 +18,7 @@ func DbInit() {
     defer db.Close()
 }
 
-//DB追加
+// DB追加
 func DbInsert(name string, balance int) {
     db, err := gorm.Open("sqlite3", "test.sqlite3")
     if err != nil {
@@ -44,24 +45,16 @@ func DbUpdate(id int, balance int) {
 
 //DB一括更新
 func DbUpdateAll(balanceArry int) {
-
     db, err := gorm.Open("sqlite3", "test.sqlite3")	
     if err != nil {
         panic("ERROR（dbUpdate)")
     }
-    // var UserBalance UserBalance
-
 	var UserBalances []Entity.UserBalance
-
 	db.Order("created_at desc").Find(&UserBalances)
-
 	for n,_ := range UserBalances {
-	
 	   UserBalances[n].Balance = UserBalances[n].Balance + balanceArry
 	   db.Save(&UserBalances[n])
-
 	}
-
 	db.Close()
 }
 
