@@ -1,7 +1,6 @@
 package Route
 
 import (
-    // "fmt"
     "strconv"
     "github.com/gin-gonic/gin"
     _ "github.com/mattn/go-sqlite3"
@@ -68,6 +67,11 @@ func Route() {
         ctx.HTML(200, "addition_all.html", gin.H{})
     })
 
+    // 一括加算画面
+    router.GET("/addition_name_all", func(ctx *gin.Context) {
+        ctx.HTML(200, "addition_name_all.html", gin.H{})
+    })
+
     // 削除画面
     router.GET("/delete_check/:id", func(ctx *gin.Context) {
         n := ctx.Param("id")
@@ -113,7 +117,6 @@ func Route() {
             if user_balance.Balance >= edit_value_number{
                 result_number = user_balance.Balance - edit_value_number
             }else{
-                // panic("ERROR")
                 result_number = 0
             }
         }
@@ -140,6 +143,26 @@ func Route() {
 
         ctx.Redirect(302, "/")
     })
+
+    // 一括加算画面(名前指定)
+    router.POST("/update_name_all", func(ctx *gin.Context) {
+        edit_value_temp := ctx.PostForm("edit_value")
+        name_value := ctx.PostForm("name_value")
+        // 半角整数か判定
+        checkRangeDigit(edit_value_temp)
+        edit_value := strings.TrimSpace(edit_value_temp)
+        edit_value_number, _ := strconv.Atoi(edit_value)
+
+        // 排他制御
+        m.Lock()
+        Model.DbUpdateNameAll(name_value,edit_value_number)
+        m.Unlock()
+
+        ctx.Redirect(302, "/")
+    })
+
+
+
 
     //削除画面
     router.POST("/delete/:id", func(ctx *gin.Context) {
