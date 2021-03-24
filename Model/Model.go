@@ -1,7 +1,7 @@
 package Model
 
 import (
-	// "fmt"
+//"fmt"
 "m/Entity"
 _ "github.com/mattn/go-sqlite3"
 "github.com/jinzhu/gorm"
@@ -35,7 +35,6 @@ func DbUpdate(id int, balance int) {
         panic("ERROR（dbUpdate)")
     }
 	var UserBalance Entity.UserBalance
-
     db.First(&UserBalance, id)
     UserBalance.Balance = balance
     db.Save(&UserBalance)

@@ -67,7 +67,7 @@ func TestDbUpdate(t *testing.T) {
     DbUpdate(1,20000)
 
     result := DbGetOne(1)
-
+    // 期待値
     expext_barance := 20000
 
     if result.Balance != expext_barance{
@@ -85,6 +85,7 @@ func TestDbUpdateAll(t *testing.T) {
 
     result := DbGetAll()
 
+    // 期待値
     expext_barance1 := 20003
     expext_barance2 := 10003
     if result[0].Balance != expext_barance1{
@@ -103,6 +104,7 @@ func TestDbDelete(t *testing.T) {
     // テスト対象関数
     DbDelete(1)
     result := DbGetOne(1)
+    // 期待値
     expext_barance := 0
 
     if result.Balance != expext_barance{

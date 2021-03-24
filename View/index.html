@@ -67,9 +67,8 @@
               <table  class="table table-hover">
                 <thead>
                     <tr>
-                        <th class="id">#</th>
                         <th>名前</th>
-                        <th>金額【円】</th>
+                        <th>金額</th>
                         <th class="link"></th>
                         <th class="link"></th>
                     </tr>
@@ -77,9 +76,8 @@
                 <tbody>
                     {{ range .user_balances }}
                     <tr>
-                        <th>{{.ID}}</th>
                         <td>{{ .Name }}</td>
-                        <td>{{ .Balance }}</td>
+                        <td>{{ .Balance }}円</td>
                         <td><button class="btn btn-edit btn-block"><a href="/detail/{{.ID}}">編集</a></button></td>
                         <td><button class="btn  btn-edit btn-block"><a href="/delete_check/{{.ID}}">削除</a></button></td>
                     </tr>

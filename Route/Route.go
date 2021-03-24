@@ -6,15 +6,23 @@ import (
     "github.com/gin-gonic/gin"
     _ "github.com/mattn/go-sqlite3"
 	"m/Model"
+    "sync"
+    "strings"
+    "regexp"
 )
 
 func Route() {
+    // 同時に複数のユーザーがCRUD操作を行う為、排他制御を行う
+    m := new(sync.Mutex)
+
     router := gin.Default()
     router.LoadHTMLGlob("View/*.html")
     Model.DbInit()
+   
     router.GET("/", func(ctx *gin.Context) {
+        m.Lock()
         user_balances := Model.DbGetAll()
-
+        m.Unlock()
 
         ctx.HTML(200, "index.html", gin.H{
             "user_balances": user_balances,
@@ -23,10 +31,20 @@ func Route() {
 
     // 新規登録画面
     router.POST("/new", func(ctx *gin.Context) {
-        name := ctx.PostForm("name")
-        balance := ctx.PostForm("balance")
+        name_temp := ctx.PostForm("name")
+        name := strings.TrimSpace(name_temp)
+        balance_temp := ctx.PostForm("balance")
+
+        // 半角整数か判定
+        checkRangeDigit(balance_temp)
+       
+        balance := strings.TrimSpace(balance_temp)
         balanceNumber, _ := strconv.Atoi(balance)
+       
+        // 排他制御
+        m.Lock()
         Model.DbInsert(name, balanceNumber)
+        m.Unlock()
         ctx.Redirect(302, "/")
     })
 
@@ -37,10 +55,11 @@ func Route() {
         if err != nil {
             panic(err)
         }
+               
+        // 排他制御
+        m.Lock()
         user_balance := Model.DbGetOne(id)
-
-            // expext := 1000
-  
+        m.Unlock()
         ctx.HTML(200, "detail.html", gin.H{"user_balance": user_balance})
     })
 
@@ -56,7 +75,11 @@ func Route() {
         if err != nil {
             panic("ERROR")
         }
+ 
+        // 排他制御
+        m.Lock()
         user_balance := Model.DbGetOne(id)
+        m.Unlock()
         ctx.HTML(200, "delete.html", gin.H{"user_balance": user_balance})
     })
 
@@ -75,7 +98,12 @@ func Route() {
         user_balance := Model.DbGetOne(id)
         
         btn_value := ctx.PostForm("btn_value")
-        edit_value := ctx.PostForm("edit_value")
+        edit_value_temp := ctx.PostForm("edit_value")
+
+        // 半角整数か判定
+        checkRangeDigit(edit_value_temp)
+
+        edit_value := strings.TrimSpace(edit_value_temp)
         edit_value_number, _ := strconv.Atoi(edit_value)
         
         result_number := 0
@@ -89,15 +117,27 @@ func Route() {
                 result_number = 0
             }
         }
+
+        // 排他制御
+        m.Lock()
         Model.DbUpdate(id, result_number)
+        m.Unlock()
         ctx.Redirect(302, "/")
     })
 
     // 一括加算画面
     router.POST("/update_all", func(ctx *gin.Context) {
-        edit_value := ctx.PostForm("edit_value")
+        edit_value_temp := ctx.PostForm("edit_value")
+        // 半角整数か判定
+        checkRangeDigit(edit_value_temp)
+        edit_value := strings.TrimSpace(edit_value_temp)
         edit_value_number, _ := strconv.Atoi(edit_value)
+
+        // 排他制御
+        m.Lock()
         Model.DbUpdateAll(edit_value_number)
+        m.Unlock()
+
         ctx.Redirect(302, "/")
     })
 
@@ -108,9 +148,22 @@ func Route() {
         if err != nil {
             panic("ERROR")
         }
-        Model.DbDelete(id)
-        ctx.Redirect(302, "/")
 
+        // 排他制御
+        m.Lock()
+        Model.DbDelete(id)
+        m.Unlock()
+
+        ctx.Redirect(302, "/")
     })
     router.Run()
 }
+
+// 半角整数か判定
+func checkRangeDigit(barance string) {
+  rangeDigit := regexp.MustCompile(`[0-9]$`)
+  if !rangeDigit.MatchString(barance) {
+      panic("ERROR")
+  }
+}
+ 
