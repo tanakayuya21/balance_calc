@@ -1,7 +1,6 @@
 package Model
 
 import (
-"fmt"
 "m/Entity"
 _ "github.com/mattn/go-sqlite3"
 "github.com/jinzhu/gorm"
@@ -103,7 +102,6 @@ func DbUpdateNameAll(name string,balanceArry int) {
     }
 	var UserBalances []Entity.UserBalance
     db.Where("name = ?", name).Find(&UserBalances)
-    fmt.Printf("%s\n", UserBalances)
 	for n,_ := range UserBalances {
 	   UserBalances[n].Balance = UserBalances[n].Balance + balanceArry
 	   db.Save(&UserBalances[n])
