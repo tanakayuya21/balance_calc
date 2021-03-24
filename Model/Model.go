@@ -1,7 +1,6 @@
 package Model
 
 import (
-//"fmt"
 "m/Entity"
 _ "github.com/mattn/go-sqlite3"
 "github.com/jinzhu/gorm"
@@ -93,4 +92,19 @@ func DbGetOne(id int) Entity.UserBalance {
     db.First(&UserBalance, id)
     db.Close()
     return UserBalance
+}
+
+//DB一括更新
+func DbUpdateNameAll(name string,balanceArry int) {
+    db, err := gorm.Open("sqlite3", "test.sqlite3")	
+    if err != nil {
+        panic("ERROR（dbUpdate)")
+    }
+	var UserBalances []Entity.UserBalance
+    db.Where("name = ?", name).Find(&UserBalances)
+	for n,_ := range UserBalances {
+	   UserBalances[n].Balance = UserBalances[n].Balance + balanceArry
+	   db.Save(&UserBalances[n])
+	}
+	db.Close()
 }
