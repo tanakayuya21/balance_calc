@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <!--Font Awesome5-->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css">
+    <link rel="stylesheet"href="https://cdnjs.cloudflare.com/ajax/libs/jQuery-Validation-Engine/2.6.4/validationEngine.jquery.min.css" />
+    <!--自作CSS -->
+    <style type="text/css">
+        .headers-name {
+            padding-top: 4px;
+            padding-right: 4px;
+            padding-bottom: 2px;
+            text-align: center;
+            font-weight: bold;
+        }
+        body {
+            background: #eee;
+        }
+        form {
+            max-width: 700px;
+            margin: auto;
+            background: white;
+            padding: 10px;
+        }
+        input {
+            display: block;
+            margin: auto;
+            padding: 4px;
+        }
+        h5 {
+            text-align: center;
+        }
+        /* 入力エラーのスタイル */
+    </style>
+</head>
+
+<body>
+    <form id="apply-form" class="" method="post" action="/new">
+       <h3>新規登録画面</h3>
+       <div class="form-row mb-12">
+        <div class="col-md-6 mb-1">
+        　<p>名前<input type="text" class="form-control validate[required]" name="name" size="30" placeholder="入力してください" required></p>
+        </div>
+        <div class="col-md-6 mb-1">
+        　<p>金額【円】<input type="text" class="form-control validate[required]" name="balance" size="30" placeholder="半角数字で入力してください" required></p>
+       </div><input type="submit" class="btn btn-primary btn-edit btn-block" value="登録">
+      </div>
+        <p><a href="/">戻る</a></p>
+    </form>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <!-- 郵便番号から住所自動入力 -->
+    <script src="https://ajaxzip3.github.io/ajaxzip3.js" charset="UTF-8"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jQuery-Validation-Engine/2.6.4/jquery.validationEngine.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jQuery-Validation-Engine/2.6.4/languages/jquery.validationEngine-ja.js"></script>
+    <script>
+    </script>
+</body>
+</html>
