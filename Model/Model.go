@@ -7,7 +7,8 @@ _ "github.com/mattn/go-sqlite3"
 )
 
 
-// DB初期化
+// DB初期化aaaa
+// kkkk
 func DbInit() {
     db, err := gorm.Open("sqlite3", "test.sqlite3")
     if err != nil {
