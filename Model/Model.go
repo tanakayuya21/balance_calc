@@ -9,6 +9,8 @@ _ "github.com/mattn/go-sqlite3"
 
 // DB初期化
 // ssss 
+// DB初期化aaaa
+// kkkk
 func DbInit() {
     db, err := gorm.Open("sqlite3", "test.sqlite3")
     if err != nil {
@@ -20,6 +22,7 @@ func DbInit() {
 
 // DB追加
 //  ff
+// kkkk
 func DbInsert(name string, balance int) {
     db, err := gorm.Open("sqlite3", "test.sqlite3")
     if err != nil {
