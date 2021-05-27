@@ -60,6 +60,7 @@ func DbUpdateAll(balanceArry int) {
 }
 
 //DB削除
+// ssss
 func DbDelete(id int) {
     // aaaaa
     db, err := gorm.Open("sqlite3", "test.sqlite3")
