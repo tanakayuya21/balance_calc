@@ -49,6 +49,7 @@ func DbUpdate(id int, balance int) {
 
 // sssss
 //DB一括更新
+// jjj
 func DbUpdateAll(balanceArry int) {
     db, err := gorm.Open("sqlite3", "test.sqlite3")	
     if err != nil {
