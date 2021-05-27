@@ -43,7 +43,7 @@ func DbUpdate(id int, balance int) {
     db.Close()
 }
 
-
+// sssss
 //DB一括更新
 func DbUpdateAll(balanceArry int) {
     db, err := gorm.Open("sqlite3", "test.sqlite3")	
