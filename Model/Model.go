@@ -19,6 +19,7 @@ func DbInit() {
 }
 
 // DB追加
+//  ff
 func DbInsert(name string, balance int) {
     db, err := gorm.Open("sqlite3", "test.sqlite3")
     if err != nil {
