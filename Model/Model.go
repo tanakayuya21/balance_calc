@@ -39,6 +39,7 @@ func DbUpdate(id int, balance int) {
     if err != nil {
         panic("ERROR（dbUpdate)")
     }
+    // 更新部分
 	var UserBalance Entity.UserBalance
     db.First(&UserBalance, id)
     UserBalance.Balance = balance
