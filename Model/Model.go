@@ -6,7 +6,6 @@ _ "github.com/mattn/go-sqlite3"
 "github.com/jinzhu/gorm"
 )
 
-
 // DB初期化
 // ssss 
 // DB初期化aaaa
