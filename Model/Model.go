@@ -49,6 +49,7 @@ func DbUpdate(id int, balance int) {
 // sssss
 //DB一括更新
 // jjj
+// 更新部分
 func DbUpdateAll(balanceArry int) {
     db, err := gorm.Open("sqlite3", "test.sqlite3")	
     if err != nil {
@@ -78,6 +79,7 @@ func DbDelete(id int) {
 }
 
 //DB全取得
+// 更新
 func DbGetAll() []Entity.UserBalance {
     db, err := gorm.Open("sqlite3", "test.sqlite3")
     if err != nil {
