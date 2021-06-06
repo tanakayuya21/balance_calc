@@ -6,8 +6,10 @@ _ "github.com/mattn/go-sqlite3"
 "github.com/jinzhu/gorm"
 )
 
-
 // DB初期化
+// ssss 
+// DB初期化aaaa
+// kkkk
 func DbInit() {
     db, err := gorm.Open("sqlite3", "test.sqlite3")
     if err != nil {
@@ -18,6 +20,10 @@ func DbInit() {
 }
 
 // DB追加
+//  ff
+// kkkk
+// vvvv
+// aaaa
 func DbInsert(name string, balance int) {
     db, err := gorm.Open("sqlite3", "test.sqlite3")
     if err != nil {
@@ -40,8 +46,10 @@ func DbUpdate(id int, balance int) {
     db.Close()
 }
 
-
+// sssss
 //DB一括更新
+// jjj
+// 更新部分
 func DbUpdateAll(balanceArry int) {
     db, err := gorm.Open("sqlite3", "test.sqlite3")	
     if err != nil {
@@ -56,9 +64,10 @@ func DbUpdateAll(balanceArry int) {
 	db.Close()
 }
 
-
 //DB削除
+// ssss
 func DbDelete(id int) {
+    // aaaaa
     db, err := gorm.Open("sqlite3", "test.sqlite3")
     if err != nil {
         panic("ERROR（dbDelete)")
@@ -70,6 +79,7 @@ func DbDelete(id int) {
 }
 
 //DB全取得
+// 更新
 func DbGetAll() []Entity.UserBalance {
     db, err := gorm.Open("sqlite3", "test.sqlite3")
     if err != nil {
