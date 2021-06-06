@@ -161,9 +161,6 @@ func Route() {
         ctx.Redirect(302, "/")
     })
 
-
-
-
     //削除画面
     router.POST("/delete/:id", func(ctx *gin.Context) {
         n := ctx.Param("id")
@@ -183,10 +180,10 @@ func Route() {
 }
 
 // 半角整数か判定
+// 差分
 func checkRangeDigit(barance string) {
   rangeDigit := regexp.MustCompile(`[0-9]$`)
   if !rangeDigit.MatchString(barance) {
       panic("ERROR")
   }
 }
- 
